@@ -111,8 +111,8 @@ async function action(actionId) {
     }
   }
   GROUP = negotiateData.group;
-  log("Negotiate OK: allowed to listen to group:", GROUP);
-  log("Connecting to PubSub service...", negotiateData.url);
+  log("Negotiated successfully: allowed to listen to group " + GROUP);
+  log("Connecting to PubSub service...");
 
   const client = new WebPubSubClient({
     getClientAccessUrl: async () => {
@@ -139,14 +139,17 @@ async function action(actionId) {
   });
 
   client.on("group-message", (e) => {
-    log("Group message from " + e.message.fromUserId + ": " + e.message.data);
+    //log("Group message from " + e.message.fromUserId + ": " + e.message.data);
 
     let command = e.message.data.trim().split(/\s+/)[0];
     let arg1 = e.message.data.trim().split(/\s+/)[1];
     switch (command) {
       case "heartbeat":
-        log("Heartbeat detected");
+        log("Heartbeat detected from " + e.message.fromUserId);
         sendHeartbeat();
+        break;
+      case "joining":
+        log("Joining detected from " + e.message.fromUserId);
         break;
       case "action":
         log("Action detected");
