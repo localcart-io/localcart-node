@@ -1,1 +1,0 @@
-# localcart-node

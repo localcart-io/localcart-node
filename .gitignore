@@ -1,0 +1,6 @@
+.DS_Store
+.env
+setup_dev.sh
+node_modules/
+device-id.txt
+run.log
