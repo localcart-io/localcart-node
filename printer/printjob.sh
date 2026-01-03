@@ -22,7 +22,7 @@ WORKDIR="$HOME/printjob"
 URL="$1"
 PDF="labels.pdf"
 
-mkdir -p "\$WORKDIR"
+mkdir -p "$WORKDIR"
 cd "$WORKDIR" || exit 1
 
 echo "Fetching labels from $URL"
