@@ -18,26 +18,28 @@ MODEL=$(echo "$PRINTER_INFO" | grep -o -E 'QL-[0-9]+[A-Z]*' | head -1)
 # Printer URI automatisch genereren
 PRINTER_URI="usb://$VENDOR_ID:$PRODUCT_ID"
 
-WORKDIR="\$HOME/printjob"
-URL="\$1"
+WORKDIR="$HOME/printjob"
+URL="$1"
 PDF="labels.pdf"
 
 mkdir -p "\$WORKDIR"
-cd "\$WORKDIR" || exit 1
+cd "$WORKDIR" || exit 1
+
+echo "Fetching labels from $URL"
 
 # PDF downloaden
-wget -O labels.pdf "\$URL"
+wget -O labels.pdf "$URL"
 
 # PDF naar PNG
-convert -density 300 "\$PDF" labels.png
+convert -density 300 "$PDF" labels.png
 
 # Print alle pagina's met gedetecteerde printer
 for f in labels-*.png; do
-    /usr/local/bin/brother_ql -b pyusb -m "$MODEL" -p "$PRINTER_URI" print -l 62 "\$f"
+    /usr/local/bin/brother_ql -b pyusb -m "$MODEL" -p "$PRINTER_URI" print -l 62 "$f"
     sleep 2
 done
 
 # Opruimen
-#rm -rf "\$WORKDIR"
+#rm -rf "$WORKDIR"
 
 echo "Printjob done"
