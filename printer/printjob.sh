@@ -19,7 +19,7 @@ MODEL=$(echo "$PRINTER_INFO" | grep -o -E 'QL-[0-9]+[A-Z]*' | head -1)
 PRINTER_URI="usb://$VENDOR_ID:$PRODUCT_ID"
 
 WORKDIR="\$HOME/printjob"
-URL=$1
+URL="\$1"
 PDF="labels.pdf"
 
 mkdir -p "\$WORKDIR"
