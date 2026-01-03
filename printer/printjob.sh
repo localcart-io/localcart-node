@@ -18,12 +18,12 @@ MODEL=$(echo "$PRINTER_INFO" | grep -o -E 'QL-[0-9]+[A-Z]*' | head -1)
 # Printer URI automatisch genereren
 PRINTER_URI="usb://$VENDOR_ID:$PRODUCT_ID"
 
-WORKDIR="$HOME/printjob"
+TMP_DIR=$(mktemp -d /tmp/myapp.XXXXXX)
 URL="$1"
 PDF="labels.pdf"
 
-mkdir -p "$WORKDIR"
-cd "$WORKDIR" || exit 1
+mkdir -p "$TMP_DIR"
+cd "$TMP_DIR" || exit 1
 
 echo "Fetching labels from $URL"
 
@@ -40,6 +40,6 @@ for f in labels-*.png; do
 done
 
 # Opruimen
-#rm -rf "$WORKDIR"
+rm -rf "$TMP_DIR"
 
 echo "Printjob done"
