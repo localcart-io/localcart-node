@@ -38,6 +38,6 @@ for f in labels-*.png; do
 done
 
 # Opruimen
-rm -f labels.pdf labels-*.png
+#rm -rf "\$WORKDIR"
 
 echo "Printjob done"
